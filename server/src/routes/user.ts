@@ -21,7 +21,7 @@ app.post('/signup',async(c) => {
     const body : {
         email : string,
         password : string
-        name : string
+        name? : string
     } = await c.req.json()
     const { success } = signupSchema.safeParse(body)
     if(!success) {
@@ -32,7 +32,11 @@ app.post('/signup',async(c) => {
     }
     try {
         const user = await prisma.user.create({
-            data : body
+            data : {
+                email : body.email,
+                password : body.password,
+                name : body.name || body.email.split('@')[0]
+            }
         })
         const token = await sign({
             id : user.id
@@ -63,7 +67,10 @@ app.post('/signin',async (c) => {
         })
     }
     const user = await prisma.user.findFirst({
-        where : body
+        where : {
+            email : body.email,
+            password : body.password
+        }
     })
     if(!user) {
         c.status(404)

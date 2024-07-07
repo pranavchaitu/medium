@@ -86,7 +86,7 @@ app.get('/bulk',async(c) => {
                 select : {
                     name : true
                 }
-            }
+            }   
         }
     });
     return c.json({

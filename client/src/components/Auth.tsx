@@ -1,6 +1,8 @@
 import { SignupSchema } from "@pranav.chaitu/medium-common"
+import axios from "axios"
 import { ChangeEvent, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { BACKEND_URL } from "../config"
 
 export const Auth = ({ type } : { type : "signup" | "signin" } ) => {
     const [postInputs,setPostInputs]  = useState<SignupSchema>({
@@ -8,9 +10,21 @@ export const Auth = ({ type } : { type : "signup" | "signin" } ) => {
         email : "",
         password : ""
     })
-    // const sendRequest = () => {
 
-    // }
+    const navigate= useNavigate()
+
+    async function sendRequest() {
+        try {
+            const response = await axios.post(`${BACKEND_URL}/api/v1/user/${type.toString()}`,postInputs)
+            const jwt = response.data.token;
+            localStorage.setItem("token",`Bearer ${jwt}`)
+            localStorage.setItem("name",postInputs.name!)    
+            navigate('/blogs')
+        } catch (e) {
+            alert('error signing up')
+            console.error(e);
+        }
+    }
 
     return <>
         <div className="h-screen flex justify-center items-center flex-col">
@@ -49,7 +63,7 @@ export const Auth = ({ type } : { type : "signup" | "signin" } ) => {
                     })
                 }} type="password"/>
                 <div className="mt-2">
-                    <button type="button" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-full">{type == 'signup' ? "Sign up" : "Sign in"}</button>
+                    <button onClick={sendRequest} type="button" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-full">{type == 'signup' ? "Sign up" : "Sign in"}</button>
                 </div>
             </div>
         </div>
@@ -71,3 +85,4 @@ const InputLabel = ({ title,placeholder,type,onChange } : InputLabelType) => {
         </div>
     </>
 }
+

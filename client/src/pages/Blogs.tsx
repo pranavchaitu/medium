@@ -15,7 +15,7 @@ export const Blogs = () => {
     }
 
     return <>
-        <AppBar name={localStorage.getItem('name') || "User" }/>
+        <AppBar name={localStorage.getItem('name') || "User" } type={"New"}/>
         <div className="pt-16 flex flex-col items-center">
             <div className="w-screen max-w-screen-md">
                 {blogs.map(blog => <BlogCard 

@@ -10,11 +10,11 @@ export const Blog = () => {
     if(loading) {
         return <>
             Loading...
-        </>
+        </> 
     }
 
     return <div>
-        <AppBar name={localStorage.getItem("name") || "User"} />
+        <AppBar name={localStorage.getItem("name") || "User"} type={"New"} />
         <div className="flex flex-col items-center">
             <div className="pt-20 lg:pt-36 grid grid-cols-12 w-screen max-w-screen-lg p-8">   
                 <div className="col-span-12 lg:col-span-8 ">
@@ -36,7 +36,7 @@ export const Blog = () => {
                         <Avatar name={blog?.author.name || "Anonymous"} type="big"/>
                         <div>
                             <div className="font-semibold">
-                                {blog?.author.name}
+                                {blog?.author.name || "Anonymous"}
                             </div>
                             <div className="text-sm text-slate-500">
                                 one byte at a time

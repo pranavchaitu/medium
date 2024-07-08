@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom"
 import { AppBar } from "../components/AppBar"
 import { useBlog } from "../hooks/useBlog"
 import { Avatar } from "../components/Avatar"
+import { BlogSkeleton } from "../components/BlogSkeleton"
 
 export const Blog = () => {
     const { id } = useParams()
@@ -9,7 +10,8 @@ export const Blog = () => {
 
     if(loading) {
         return <>
-            Loading...
+            <AppBar name={localStorage.getItem("name") || "User"} type={"New"} />
+            <BlogSkeleton />
         </> 
     }
 
@@ -42,26 +44,25 @@ export const Blog = () => {
                                 one byte at a time
                             </div>
                         </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div className="px-8 block lg:hidden">
-            <div className="text-sm text-slate-600">
-                Author
-            </div>
-            <div className="flex gap-4 items-center mt-2">
-                <Avatar name={blog?.author.name || "Anonymous"} type="big"/>
-                <div>
-                    <div className="font-semibold">
-                        {blog?.author.name}
-                    </div>
-                    <div className="text-sm text-slate-500">
-                        one byte at a time
+            <div className="px-8 block lg:hidden">
+                <div className="text-sm text-slate-600">
+                    Author
+                </div>
+                <div className="flex gap-4 items-center mt-2">
+                    <Avatar name={blog?.author.name || "Anonymous"} type="big"/>
+                    <div>
+                        <div className="font-semibold">
+                            {blog?.author.name}
+                        </div>
+                        <div className="text-sm text-slate-500">
+                            one byte at a time
+                        </div>
                     </div>
                 </div>
-            </div>
         </div>
-
     </div>
 }

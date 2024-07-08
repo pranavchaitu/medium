@@ -18,7 +18,7 @@ export const Auth = ({ type } : { type : "signup" | "signin" } ) => {
             const response = await axios.post(`${BACKEND_URL}/api/v1/user/${type.toString()}`,postInputs)
             const jwt = response.data.token;
             localStorage.setItem("token",`Bearer ${jwt}`)
-            localStorage.setItem("name",postInputs.name!)    
+            localStorage.setItem("name",postInputs.name!)
             navigate('/blogs')
         } catch (e) {
             alert('error signing up')
@@ -26,7 +26,7 @@ export const Auth = ({ type } : { type : "signup" | "signin" } ) => {
         }
     }
 
-    return <>
+    return <div>
         <div className="h-screen flex justify-center items-center flex-col">
             <div className="flex justify-center flex-col">
                 <div className="px-8 mb-4 text-center">`
@@ -67,7 +67,7 @@ export const Auth = ({ type } : { type : "signup" | "signin" } ) => {
                 </div>
             </div>
         </div>
-    </>
+    </div>
 }
 
 interface InputLabelType {

@@ -1,5 +1,6 @@
 import { AppBar } from "../components/AppBar"
 import { BlogCard } from "../components/BlogCard"
+import { BlogsSkeleton } from "../components/BlogsSkeleton";
 import { Blog, useBlogs } from "../hooks/useBlogs"
 
 export const Blogs = () => {
@@ -9,9 +10,17 @@ export const Blogs = () => {
     } = useBlogs();
 
     if(loading) {
-        return <>
-            Loading..
-        </>
+        return <div>
+            <AppBar name={localStorage.getItem('name') || "User" } type={"New"}/>
+            <div className="pt-16 flex flex-col items-center">
+                <div className="w-screen max-w-screen-md">
+                    <BlogsSkeleton />
+                    <BlogsSkeleton />
+                    <BlogsSkeleton />
+                    <BlogsSkeleton />  
+                </div>
+            </div>  
+        </div>
     }
 
     return <>

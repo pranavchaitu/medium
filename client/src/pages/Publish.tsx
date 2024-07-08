@@ -18,14 +18,12 @@ export const Publish = () => {
                         title : e.target.value
                     })
                 }} type="text" placeholder="Title" className="outline-none w-full h-20 font-serif text-5xl font-bold placeholder:text-gray-300 p-6"/>
-            </div>
-            <div className="w-screen max-w-screen-lg">
                 <textarea onChange={(e) => {
                     setBlog({
                         ...blog,
                         content : e.target.value
                     })
-                }} placeholder="Tell your story..." className="p-6 w-full outline-none pb-96 placeholder:font-serif placeholder:text-2xl placeholder:font-bold font-mono text-lg placeholder:text-gray-300"/>
+                }} placeholder="Tell your story..." className="p-6 w-full outline-none pb-80 placeholder:font-serif placeholder:text-2xl placeholder:font-bold font-mono text-lg placeholder:text-gray-300"/>
             </div>
         </div>
     </div> 

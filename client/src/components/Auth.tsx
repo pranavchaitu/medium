@@ -1,33 +1,35 @@
 import { SignupSchema } from "@pranav.chaitu/medium-common"
 import axios from "axios"
-import { ChangeEvent, useEffect, useState } from "react"
+import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { BACKEND_URL } from "../config"
+import { Me } from "../pages/Me"
+import { InputLabel } from "./InputLable"
+import { DotLoader } from "./DotLoader"
 
 export const Auth = ({ type } : { type : "signup" | "signin" } ) => {
+    Me()
     const [postInputs,setPostInputs]  = useState<SignupSchema>({
         name : "",
         email : "",
         password : ""
     })
-
-    useEffect(() => {
-        if(localStorage.getItem('token')) {
-            return navigate('/blogs')
-        }
-    },[])
+    const [loading,setLoading] = useState(false)
 
     const navigate= useNavigate()
 
     async function sendRequest() {
+        setLoading(true)
         try {
             const response = await axios.post(`${BACKEND_URL}/api/v1/user/${type.toString()}`,postInputs)
             const jwt = response.data.token;
-            localStorage.setItem("token",`Bearer ${jwt}`)
-            localStorage.setItem("name",postInputs.name!)
+            localStorage.setItem("token",jwt)
+            localStorage.setItem("name",postInputs.name || "User")
+            setLoading(false)
             navigate('/blogs')
         } catch (e) {
             alert('error signing up')
+            navigate('/')
             console.error(e);
         }
     }
@@ -69,26 +71,12 @@ export const Auth = ({ type } : { type : "signup" | "signin" } ) => {
                     })
                 }} type="password"/>
                 <div className="mt-2">
-                    <button onClick={sendRequest} type="button" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-full">{type == 'signup' ? "Sign up" : "Sign in"}</button>
+                    <button onClick={sendRequest} type="button" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-full">{loading ? <DotLoader /> : type == 'signup' ? "Sign up" : "Sign in"}</button>
                 </div>
             </div>
         </div>
     </div>
 }
 
-interface InputLabelType {
-    title : string,
-    placeholder : string,
-    type? : string
-    onChange : (e : ChangeEvent<HTMLInputElement>) => void
-}
 
-const InputLabel = ({ title,placeholder,type,onChange } : InputLabelType) => {
-    return <>
-        <div className="mb-2">
-            <label className="block mb-2 text-sm font-medium text-gray-700">{ title }</label>
-            <input onChange={onChange} type={type || "text"} id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-2 py-2.5" placeholder={placeholder} required />
-        </div>
-    </>
-}
 

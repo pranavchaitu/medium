@@ -8,10 +8,14 @@ export const AppBar = ({ name,type,blog } : { name : string,type : "Publish" |"N
     const navigate = useNavigate();
     
     async function sendRequest() {
+        if(!blog?.title || !blog?.content) {
+            return alert('enter some title/content')
+        }
         try {
+            const token = localStorage.getItem('token')
             const response = await axios.post(`${BACKEND_URL}/api/v1/blog`,blog,{
                 headers : {
-                    Authorization : localStorage.getItem("token")
+                    Authorization : `Bearer ${token}`
                 }
             })
             navigate(`/blog/${response.data.id}`)

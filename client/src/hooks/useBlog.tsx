@@ -8,9 +8,10 @@ export const useBlog = ({ id } : { id : string }) => {
     const [blog,setBlog] = useState<Blog>()
 
     useEffect(() => {
+        const token = localStorage.getItem('token')
         axios.get(`${BACKEND_URL}/api/v1/blog/${id}`,{
             headers : {
-                Authorization : localStorage.getItem('token')
+                Authorization : `Bearer ${token}`
             }
         })
             .then((response) => {

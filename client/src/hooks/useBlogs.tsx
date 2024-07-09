@@ -19,10 +19,11 @@ export const useBlogs = () => {
     useEffect(() => {
         callIt()
         async function callIt() {
+            const token = localStorage.getItem('token')
             try {
                 const response = await axios.get(`${BACKEND_URL}/api/v1/blog/bulk`,{
                     headers : {
-                        Authorization : localStorage.getItem('token')
+                        Authorization : `Bearer ${token}`
                     }
                 })   
                 setBlogs(response.data.blogs)

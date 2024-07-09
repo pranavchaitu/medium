@@ -52,7 +52,7 @@ export const Blog = () => {
                 <div className="text-sm text-slate-600">
                     Author
                 </div>
-                <div className="flex gap-4 items-center mt-2">
+                <div className="flex gap-4 items-center mt-2 mb-10">
                     <Avatar name={blog?.author.name || "Anonymous"} type="big"/>
                     <div>
                         <div className="font-semibold">

@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { BACKEND_URL } from "../config"
+import { useNavigate } from "react-router-dom";
 
 export interface Blog {
     id : string;
@@ -14,18 +15,24 @@ export interface Blog {
 export const useBlogs = () => {
     const [loading,setLoading] = useState(true)
     const [blogs,setBlogs] = useState<Blog[]>([])
-
+    const navigate = useNavigate()
     useEffect(() => {
-        axios.get(`${BACKEND_URL}/api/v1/blog/bulk`,{
-            headers : {
-                Authorization : localStorage.getItem('token')
-            }
-        })
-            .then((response) => {
+        callIt()
+        async function callIt() {
+            try {
+                const response = await axios.get(`${BACKEND_URL}/api/v1/blog/bulk`,{
+                    headers : {
+                        Authorization : localStorage.getItem('token')
+                    }
+                })   
                 setBlogs(response.data.blogs)
                 setLoading(false)
-            })
-    })
+            } catch (error) {
+                navigate('/signup')
+            }
+        }
+    },[])
+    
     return {
         loading,
         blogs

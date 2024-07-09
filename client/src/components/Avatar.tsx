@@ -4,4 +4,4 @@ export function Avatar( { name,type } : { name : string, type : "small" | "big"}
             <span className={`${type === "small" ? "font-normal" : "font-medium"} text-gray-600 text-sm`}>{name[0].toUpperCase()}</span>
         </div>
     </>
-}
+}   

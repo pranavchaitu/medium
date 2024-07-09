@@ -1,6 +1,6 @@
 import { SignupSchema } from "@pranav.chaitu/medium-common"
 import axios from "axios"
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { BACKEND_URL } from "../config"
 
@@ -10,6 +10,12 @@ export const Auth = ({ type } : { type : "signup" | "signin" } ) => {
         email : "",
         password : ""
     })
+
+    useEffect(() => {
+        if(localStorage.getItem('token')) {
+            return navigate('/blogs')
+        }
+    },[])
 
     const navigate= useNavigate()
 

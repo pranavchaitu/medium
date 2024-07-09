@@ -12,14 +12,14 @@ export const signinSchema = z.object({
 })
 
 export const createBlogSchema =  z.object({
-    title : z.string(),
-    content : z.string()
+    title : z.string().min(1),
+    content : z.string().min(6)
 })
 
 export const updateBlogSchema = z.object({
     id : z.string(),
-    title : z.string(),
-    content : z.string()
+    title : z.string().min(1),
+    content : z.string().min(6)
 })
 
 export type SignupSchema = z.infer<typeof signupSchema> 

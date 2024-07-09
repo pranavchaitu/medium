@@ -2,8 +2,8 @@ name = "server"
 compatibility_date = "2023-12-01"
 
 [vars]
-DATABASE_URL="prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiMmM1NDNkOWEtZjhkOS00MTNkLTgwOWMtYzBlZDBjY2Q3NjNlIiwidGVuYW50X2lkIjoiN2RjMDgyMDRjMjY3YzIwM2Q1ZWVjNGMxN2Y1OGI4OWUyYmM2MGY2MmFkZTg2ZmZmZDc5ZTg3NzI3NWUwZDdkYSIsImludGVybmFsX3NlY3JldCI6ImI2MTA2MWE0LTQ5YWItNDRmMC04MjU4LWE2YTAxNDhmOGI2YyJ9.ZgxOnn9Wu-QTM7b48Sto5CgzlfLDec9aPk5B_rXJHR0"
-JWT_SECRET="pranavsecret"
+DATABASE_URL=""
+JWT_SECRET=""
 
 # MY_VAR = "my-variable"
 

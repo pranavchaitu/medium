@@ -1,22 +1,35 @@
 import { SignupSchema } from "@pranav.chaitu/medium-common"
 import axios from "axios"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { BACKEND_URL } from "../config"
-import { Me } from "../pages/Me"
 import { InputLabel } from "./InputLabel"
 import { DotLoader } from "./DotLoader"
 
 export const Auth = ({ type } : { type : "signup" | "signin" } ) => {
-    Me()
+    const navigate= useNavigate()
+    
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        if(token) {
+            axios.get(`${BACKEND_URL}/api/v1/me`,{
+                headers : {
+                    Authorization : `Bearer ${token}`
+                }
+            }).then((res) => {
+                if(res.data.isValid) {
+                    navigate('/blogs')
+                }
+            })
+        }
+    },[])
+
     const [postInputs,setPostInputs]  = useState<SignupSchema>({
         name : "",
         email : "",
         password : ""
     })
     const [loading,setLoading] = useState(false)
-
-    const navigate= useNavigate()
 
     async function sendRequest() {
         setLoading(true)

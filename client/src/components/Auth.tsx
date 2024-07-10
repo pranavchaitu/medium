@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { BACKEND_URL } from "../config"
 import { Me } from "../pages/Me"
-import { InputLabel } from "./InputLable"
+import { InputLabel } from "./InputLabel"
 import { DotLoader } from "./DotLoader"
 
 export const Auth = ({ type } : { type : "signup" | "signin" } ) => {

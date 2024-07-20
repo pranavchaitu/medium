@@ -94,7 +94,7 @@ app.get('/bulk',async(c) => {
     })
 })
 
-app.get('/:id',authMiddleWare,async(c) => {
+app.get('/:id',async(c) => {
     const id = c.req.param('id')
     const prisma = c.get('prisma')
     const blog = await prisma.post.findFirst({

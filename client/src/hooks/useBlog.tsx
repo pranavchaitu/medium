@@ -9,11 +9,7 @@ export const useBlog = ({ id } : { id : string }) => {
 
     useEffect(() => {
         const token = localStorage.getItem('token')
-        axios.get(`${BACKEND_URL}/api/v1/blog/${id}`,{
-            headers : {
-                Authorization : `Bearer ${token}`
-            }
-        })
+        axios.get(`${BACKEND_URL}/api/v1/blog/${id}`)
             .then((response) => {
                 setBlog(response.data.blog)
                 setLoading(false)

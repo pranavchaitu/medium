@@ -21,11 +21,7 @@ export const useBlogs = () => {
         async function callIt() {
             const token = localStorage.getItem('token')
             try {
-                const response = await axios.get(`${BACKEND_URL}/api/v1/blog/bulk`,{
-                    headers : {
-                        Authorization : `Bearer ${token}`
-                    }
-                })   
+                const response = await axios.get(`${BACKEND_URL}/api/v1/blog/bulk`)   
                 setBlogs(response.data.blogs)
                 setLoading(false)
             } catch (error) {

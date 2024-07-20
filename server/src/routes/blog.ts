@@ -15,9 +15,9 @@ const app = new Hono<{
     }
 }>()
 
-app.use('/*',prismaCreate,authMiddleWare)
+app.use('/*',prismaCreate)
 
-app.post('/',async(c) => {
+app.post('/',authMiddleWare,async(c) => {
     const prisma = c.get('prisma')
     const authorId = c.get('userId')
     const body = await c.req.json()
@@ -42,7 +42,7 @@ app.post('/',async(c) => {
     })
 })
 
-app.put('/',async(c) => {
+app.put('/',authMiddleWare,async(c) => {
     const prisma = c.get('prisma')
     const authorId = c.get('userId')
     const body = await c.req.json()
@@ -94,7 +94,7 @@ app.get('/bulk',async(c) => {
     })
 })
 
-app.get('/:id',async(c) => {
+app.get('/:id',authMiddleWare,async(c) => {
     const id = c.req.param('id')
     const prisma = c.get('prisma')
     const blog = await prisma.post.findFirst({
